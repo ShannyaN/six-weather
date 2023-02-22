@@ -51,7 +51,8 @@ function getWeather(addCoor) {
         return response.json();
     })
     .then(function (data) {
-       console.log(data[0].wind)
+       console.log(data)
+       console.log(data.city)
     })
 }
 /*var repoList = document.querySelector('ul');
