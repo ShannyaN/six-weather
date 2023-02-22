@@ -7,10 +7,10 @@ var hr = dayjs().format('h');
 var searchContent = document.querySelector("#locSearch");
 var subButton = document.getElementById("subButt");
 var key = "69d4e3163b70b25ade9ac546dae8169a";
-var apiAdd;
+var apiAdd = "&appid=" + key;
 var lat;
 var lon;
-
+var longlatAdd;
 subButton.addEventListener('click', function (event){
     event.preventDefault();
     getCoor(); })
@@ -19,30 +19,40 @@ function getCoor(){
     var baseUrl="http://api.openweathermap.org/geo/1.0/direct?q=";
     var city = searchContent.value.replace(/ /g, '');
     var limitAdd = "&limi=" + 5;
-    apiAdd = "&appid=" + key;
     var requestUrl = baseUrl + city + limitAdd + apiAdd ;
+    var x;
+    var y;
     console.log(requestUrl);
     fetch(requestUrl)
     .then(function (response) {
-      return response.json();
-      console.log(response.json());
+        //console.log(response.json());
+        return response.json();
     })
     .then(function (data) {
        // console.log(data.json())
-       lat = data[0].lat
-       lon = data[0].lat
-       console.log(lat,lon)
+       lat = data[0].lat;
+       lon = data[0].lon;
+        longlatAdd="lat=" + lat + "&lon=" + lon;
+       console.log(lon,lat);
+       //console.log(longlatAdd)
+       getWeather(longlatAdd);
     })
-    getWeather();
 }
 
-
-function getWeather(){
-    console.log("hey")
-    var baseUrl2 = "api.openweathermap.org/data/2.5/forecast?"
-    var longlatAdd="lat=" + lat + "&lon=" + lon;
-    var requestUrl2 = baseUrl2 + longlatAdd + apiAdd ;
+function getWeather(addCoor) {
+    var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
+    var count = "&cnt=" + 5;
+    var units = "&units=imperial";
+    var requestUrl2 = baseUrl2 + addCoor + count + apiAdd + units ;
     console.log(requestUrl2)
+    fetch(requestUrl2)
+    .then(function (response) {
+       // console.log(response.json())
+        return response.json();
+    })
+    .then(function (data) {
+       console.log(data[0].wind)
+    })
 }
 /*var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById('fetch-button');
