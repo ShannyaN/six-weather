@@ -38,10 +38,28 @@ function getCoor(){
        getWeather(longlatAdd);
     })
 }
-
+var i=0;
+var allInfo;
+var dayTime;
+var mainWeath;
+var descWeath;
+var temp ;
+var wind ;
+var humid;
+var days = [];
+function createObj (x) {
+  days[x] = {
+    mainWeath: mainWeath,
+    descWeath: descWeath,
+    temp: temp,
+    wind: wind,
+    humid: humid
+  }
+  console.log(days[x])
+}
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
-    var count = "&cnt=" + 5;
+    var count = "&cnt=" + 40;
     var units = "&units=imperial";
     var requestUrl2 = baseUrl2 + addCoor + count + apiAdd + units ;
     console.log(requestUrl2)
@@ -52,8 +70,21 @@ function getWeather(addCoor) {
     })
     .then(function (data) {
        console.log(data)
-       console.log(data.city)
-    })
+       console.log(data.list)
+       allInfo=data.list;
+       for (var i=0;i<41;i+8){
+        console.log(allInfo[i].dt_txt);
+        dayTime = allInfo[i].dt_txt;
+        console.log(allInfo[i].weather[0].main)
+        mainWeath = allInfo[i].weather[0].main;
+        descWeath = allInfo[i].weather[0].description;
+        console.log(allInfo[i].main.temp)
+        temp = allInfo[i].main.temp
+        wind = allInfo[i].wind.speed
+        console.log(wind)
+        humid = allInfo[i].main.humidity
+        createObj(i);
+}})
 }
 /*var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById('fetch-button');
