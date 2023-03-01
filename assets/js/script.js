@@ -58,7 +58,6 @@ function createObj (x) {
   }
   console.log(days[x])
 }
-console.log(days)
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
     var count = "&cnt=" + 40;
@@ -72,19 +71,19 @@ function getWeather(addCoor) {
     })
     .then(function (data) {
        console.log(data)
-       console.log(data.list)
+       //console.log(data.list)
        allInfo=data.list;
        for (var i=0;i<41;i++){
-        console.log(allInfo[i].dt_txt);
+        //console.log(allInfo[i].dt_txt);
         dayTime = allInfo[i].dt_txt;
-        console.log(allInfo[i].weather[0].main)
-        stamp=dayTime[12]
+        //console.log(allInfo[i].weather[0].main);
+        stamp=dayTime[12];
         mainWeath = allInfo[i].weather[0].main;
         descWeath = allInfo[i].weather[0].description;
-        console.log(allInfo[i].main.temp)
+       //console.log(allInfo[i].main.temp)
         temp = allInfo[i].main.temp
         wind = allInfo[i].wind.speed
-        console.log(wind)
+        //console.log(wind)
         humid = allInfo[i].main.humidity
         if (stamp==3) {
           createObj(i);}
