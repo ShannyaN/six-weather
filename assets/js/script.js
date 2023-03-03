@@ -57,6 +57,7 @@ function createObj (x) {
     humid: humid
   }
   console.log(days[x])
+  
 }
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
@@ -73,7 +74,7 @@ function getWeather(addCoor) {
        console.log(data)
        //console.log(data.list)
        allInfo=data.list;
-       for (var i=0;i<41;i++){
+       for (var i=0;i<38;i++){
         //console.log(allInfo[i].dt_txt);
         dayTime = allInfo[i].dt_txt;
         //console.log(allInfo[i].weather[0].main);
