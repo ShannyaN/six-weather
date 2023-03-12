@@ -3,23 +3,34 @@ document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
 var key = "69d4e3163b70b25ade9ac546dae8169a";
 var apiAdd = "&appid=" + key;
-var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 var idx = days.indexOf(dayjs().format('dddd'));
-console.log(idx)
-var in2 = days[idx+2]
-console.log(in2)
+var in2 = days[idx+2] || idx-5;
+var in3 = days[idx+3] || idx-4;
+var in4 = days[idx+4] || idx-3;
+
 //DEPENDENCIES
 var hr = dayjs().format('h');
-var searchContent = document.querySelector("#locSearch");
 var subButton = document.getElementById("subButt");
+var searchContent = document.querySelector("#locSearch");
 var allCities = document.querySelector('.list-group').children;
 var mainEl = document.querySelector("#main");
+var city1El = document.querySelector("#city1");
+var city2El = document.querySelector("#city2");
+var city3El = document.querySelector("#city3");
+var city4El = document.querySelector("#city4");
+var city5El = document.querySelector("#city5");
+var in2dsEl = document.querySelector("#in2ds");
+var in3dsEl = document.querySelector("#in3ds");
+var in4dsEl = document.querySelector("#in4ds");
+var cityNameEl = document.querySelector(".cityName");
+var locationEl = document.querySelector("#location");
 
 //INITIALIZATIONS
 var lat;
 var lon;
 var longlatAdd;
-//var i=0;
+var i=0;
 var allInfo;
 var dayTime;
 var mainWeath;
@@ -29,6 +40,7 @@ var wind ;
 var humid;
 var days = [];
 var cityWeather;
+var cityName;
 
 function getCoor(){
     var baseUrl="http://api.openweathermap.org/geo/1.0/direct?q=";
@@ -54,7 +66,6 @@ function getCoor(){
     })
 }
 
-
 function createObj (x) {
   days[x] = {
     dayTime,
@@ -65,6 +76,9 @@ function createObj (x) {
     humid
   }
   console.log(days[x])
+}
+function popFor(obj){
+  locationEl.textContent("Today's Forecast in" + {cityName});
 }
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
@@ -79,29 +93,31 @@ function getWeather(addCoor) {
     })
     .then(function (data) {
       var cityWeather = [];
-      var city = `${data.city.name}, ${data.city.country}`;
-      cityWeather.push(city);
+      cityName = `${data.city.name}, ${data.city.country}`;
+      cityWeather.push(cityName);
        console.log(cityWeather);
        //console.log(data.list)
        allInfo=data.list;
        //console.log(city)
-       for (var idx=0;idx<38;idx++){
+       for (var i=0;i<38;i++){
         //console.log(allInfo[i].dt_txt);
-        dayTime = allInfo[idx].dt_txt;
+        dayTime = allInfo[i].dt_txt;
         //console.log(allInfo[i].weather[0].main);
         stamp=dayTime[12];
-        mainWeath = allInfo[idx].weather[0].main;
-        descWeath = allInfo[idx].weather[0].description;
+        mainWeath = allInfo[i].weather[0].main;
+        descWeath = allInfo[i].weather[0].description;
        //console.log(allInfo[i].main.temp)
-        temp = allInfo[idx].main.temp
-        wind = allInfo[idx].wind.speed
+        temp = allInfo[i].main.temp
+        wind = allInfo[i].wind.speed
         //console.log(wind)
-        humid = allInfo[idx].main.humidity
+        humid = allInfo[i].main.humidity
         if (stamp==3) {
-          createObj(idx);
-          cityWeather.push(days[idx]);
+          createObj(i);
+          cityWeather.push(days[i]);
         }
-}})
+      }
+      popFor(cityWeather);
+})
 }
 
 function showWeather(){
