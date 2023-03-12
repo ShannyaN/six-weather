@@ -3,7 +3,11 @@ document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
 var key = "69d4e3163b70b25ade9ac546dae8169a";
 var apiAdd = "&appid=" + key;
-
+var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday']
+var idx = days.indexOf(dayjs().format('dddd'));
+console.log(idx)
+var in2 = days[idx+2]
+console.log(in2)
 //DEPENDENCIES
 var hr = dayjs().format('h');
 var searchContent = document.querySelector("#locSearch");
