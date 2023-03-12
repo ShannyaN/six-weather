@@ -1,24 +1,35 @@
-
+//INDEPENDENT
 document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('dddd, MMMM D, YYYY')
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
-
-var hr = dayjs().format('h');
-
-var searchContent = document.querySelector("#locSearch");
-var subButton = document.getElementById("subButt");
 var key = "69d4e3163b70b25ade9ac546dae8169a";
 var apiAdd = "&appid=" + key;
+
+//DEPENDENCIES
+var hr = dayjs().format('h');
+var searchContent = document.querySelector("#locSearch");
+var subButton = document.getElementById("subButt");
+var allCities = document.querySelector('.list-group').children;
+var mainEl = document.querySelector("#main");
+
+//INITIALIZATIONS
 var lat;
 var lon;
 var longlatAdd;
-subButton.addEventListener('click', function (event){
-    event.preventDefault();
-    getCoor(); })
+//var i=0;
+var allInfo;
+var dayTime;
+var mainWeath;
+var descWeath;
+var temp ;
+var wind ;
+var humid;
+var days = [];
+var cityWeather;
 
 function getCoor(){
     var baseUrl="http://api.openweathermap.org/geo/1.0/direct?q=";
     var city = searchContent.value.replace(/ /g, '');
-    var limitAdd = "&limi=" + 5;
+    var limitAdd = "&limit=" + 5;
     var requestUrl = baseUrl + city + limitAdd + apiAdd ;
     var x;
     var y;
@@ -38,26 +49,18 @@ function getCoor(){
        getWeather(longlatAdd);
     })
 }
-var i=0;
-var allInfo;
-var dayTime;
-var mainWeath;
-var descWeath;
-var temp ;
-var wind ;
-var humid;
-var days = [];
+
+
 function createObj (x) {
   days[x] = {
-    dayTime:dayTime,
-    mainWeath: mainWeath,
-    descWeath: descWeath,
-    temp: temp,
-    wind: wind,
-    humid: humid
+    dayTime,
+    mainWeath,
+    descWeath,
+    temp,
+    wind,
+    humid
   }
   console.log(days[x])
-  
 }
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
@@ -71,25 +74,47 @@ function getWeather(addCoor) {
         return response.json();
     })
     .then(function (data) {
-       console.log(data)
+      var cityWeather = [];
+      var city = `${data.city.name}, ${data.city.country}`;
+      cityWeather.push(city);
+       console.log(cityWeather);
        //console.log(data.list)
        allInfo=data.list;
-       for (var i=0;i<38;i++){
+       //console.log(city)
+       for (var idx=0;idx<38;idx++){
         //console.log(allInfo[i].dt_txt);
-        dayTime = allInfo[i].dt_txt;
+        dayTime = allInfo[idx].dt_txt;
         //console.log(allInfo[i].weather[0].main);
         stamp=dayTime[12];
-        mainWeath = allInfo[i].weather[0].main;
-        descWeath = allInfo[i].weather[0].description;
+        mainWeath = allInfo[idx].weather[0].main;
+        descWeath = allInfo[idx].weather[0].description;
        //console.log(allInfo[i].main.temp)
-        temp = allInfo[i].main.temp
-        wind = allInfo[i].wind.speed
+        temp = allInfo[idx].main.temp
+        wind = allInfo[idx].wind.speed
         //console.log(wind)
-        humid = allInfo[i].main.humidity
+        humid = allInfo[idx].main.humidity
         if (stamp==3) {
-          createObj(i);}
+          createObj(idx);
+          cityWeather.push(days[idx]);
+        }
 }})
 }
+
+function showWeather(){
+  for (let index = 0; index < allCities.length; index++) {
+    const currentCity = allCities[index];
+    currentCity.classList.remove("hide");
+  }
+  mainEl.classList.remove("hide");
+};
+
+subButton.addEventListener('click', function (event){
+  event.preventDefault();
+  getCoor();
+  showWeather()
+ })
+
+
 /*var repoList = document.querySelector('ul');
 var fetchButton = document.getElementById('fetch-button');
 
