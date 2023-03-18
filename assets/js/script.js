@@ -115,6 +115,9 @@ function clearCurrent(){
 }
     
 
+var temp = `Main weather: ${data[0].temp}`
+currentEl.val(temp)
+
 var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
 function popMain(obj){
   if (city)
