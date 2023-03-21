@@ -1,19 +1,22 @@
 //INDEPENDENT
-var allWeather = JSON.parse(localStorage.getItem('weatherData'))||[];
+var allWeather = JSON.parse(localStorage.getItem('weatherData'))||[]; //if there is stored weather data in local storage set it to allWeather or a blank array if not present
 
-console.log(allWeather);
+//DAY JS 
 document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('dddd, MMMM D, YYYY')
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
-var key = "69d4e3163b70b25ade9ac546dae8169a";
-var apiAdd = "&appid=" + key;
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 var idx = days.indexOf(dayjs().format('dddd'));
 var in2 = days[idx+2] || idx-5;
 var in3 = days[idx+3] || idx-4;
 var in4 = days[idx+4] || idx-3;
-console.log(in2)
-//DEPENDENCIES
 var hr = dayjs().format('h');
+
+//API
+var key = "69d4e3163b70b25ade9ac546dae8169a";
+var apiAdd = "&appid=" + key;
+
+//DEPENDENCIES
+
 var subButton = document.getElementById("subButt");
 var searchContent = document.querySelector("#locSearch");
 var cityCollection = document.querySelector('.list-group');
