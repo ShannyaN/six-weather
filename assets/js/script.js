@@ -36,7 +36,7 @@ var tmForEl = document.querySelector("#tmFor");
 var in2ForEl = document.querySelector("#in2dFor");
 var in3ForEl = document.querySelector("#in3dFor");
 var in4ForEl = document.querySelector("#in4dFor");
-
+document.creareEle
 //INITIALIZATIONS
 var lat;
 var lon;
@@ -89,54 +89,31 @@ function createObj (x) {
   }
   console.log(days[x])
 }
-
-function clearCurrent(){
-  console.log(mainWeath)
-    // var els1 = [mainWeathEl[0], descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
-    // for (let b = 0; b < els1.length; b++) {
-    //   var currentText;
-    //   els1[b].textContent = currentTxt;
-    //   console.log(currentTxt)
-    //  //var colonLoc = currentTxt.indexOf(":")
-    //   currentTxt = currentTxt.split(":");
-    //   currentTxt = currentTxt[0] + ": ";
-    //   console.log(currentTxt)
-    //   els1[b].textContent=currentTxt;}
-    /*for (var e=0;e<cityWeather.length;e++){
-      var currentEls = [mainWeathEl[e+1], descWeathEl[e+1],tempEl[e+1],windEl[e+1],humidEl[e+1]];
-      for (let w = 0; w < currentEls.length; w++) {
-        var currentTxts = currentEls[w].textContent;
-        currentTxts = currentTxts.split(":");
-        currentTxts = currentTxts[0] + ": ";
-        console.log(currentTxts)
-        currentEls[w].textContent=currentTxts;
-      }
-    }*/
-}
-    
-
-var temp = `Main weather: ${data[0].temp}`
-currentEl.val(temp)
-
-var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
+var cont = ["descWeath", "temp", "wind", "humid"]
+var preFix = ["", "Temperature: ", "Wind: ", "Humidity: "]
+var postFix = ["", "°F", " mph", "%"]
 function popMain(obj){
-  if (city)
-  var els0 = [mainWeathEl[0], descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
+  var els0 = [descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
   for (let b = 0; b < els0.length; b++) {
-    els0[b].append(obj[cont[b]]);
+    var popStr = `${preFix[b]}${obj[cont[b]]}${postFix[b]} `
+    console.log(popStr);
+    els0[b].textContent = popStr;
     console.log(obj)
 }}
 function popFor(fullObj){
-  for (var s=0;s<fullObj.length;s++){
+  // for (var s=0;s<fullObj.length;s++){
+    var s=0
     var currentObj = fullObj[s];
-    var currentEl = [mainWeathEl[s+1], descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
+    var currentEl = [descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
     //var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
     for (let d = 0; d < currentEl.length; d++) {
-      currentEl[d].append(currentObj[cont[d]]);
+      var popStr = `${preFix[d]}${currentObj[cont[d]]}${postFix[d]} `
+      console.log(popStr);
+      currentEl[d].textContent = popStr;
       //console.log(obj)
 
   }
-}}
+}
 
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
@@ -167,7 +144,6 @@ function getWeather(addCoor) {
           cityWeather.push(days[i]);
         }
       }
-      
       popMain(cityWeather[0]);
       popFor(cityWeather);
 })
@@ -183,7 +159,6 @@ function showWeather(){
 
 subButton.addEventListener('click', function (event){
   event.preventDefault();
-  if (cityWeather) {clearCurrent()};
   getCoor();
   showWeather()
  })
