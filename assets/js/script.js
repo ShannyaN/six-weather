@@ -8,12 +8,12 @@ var idx = days.indexOf(dayjs().format('dddd'));
 var in2 = days[idx+2] || idx-5;
 var in3 = days[idx+3] || idx-4;
 var in4 = days[idx+4] || idx-3;
-
+var allWeather=[];
 //DEPENDENCIES
 var hr = dayjs().format('h');
 var subButton = document.getElementById("subButt");
 var searchContent = document.querySelector("#locSearch");
-var allCities = document.querySelector('.list-group').children;
+var cityCollection = document.querySelector('.list-group');
 var mainEl = document.querySelector("#main");
 var city1El = document.querySelector("#city1");
 var city2El = document.querySelector("#city2");
@@ -36,7 +36,7 @@ var tmForEl = document.querySelector("#tmFor");
 var in2ForEl = document.querySelector("#in2dFor");
 var in3ForEl = document.querySelector("#in3dFor");
 var in4ForEl = document.querySelector("#in4dFor");
-document.creareEle
+
 //INITIALIZATIONS
 var lat;
 var lon;
@@ -61,6 +61,7 @@ function getCoor(){
     var requestUrl = baseUrl + city + limitAdd + apiAdd ;
     var x;
     var y;
+    cityWeather=[];
     console.log(requestUrl);
     fetch(requestUrl)
     .then(function (response) {
@@ -77,9 +78,18 @@ function getCoor(){
        getWeather(longlatAdd);
     })
 }
-
+function addCity(cityAdd){
+  var newCity = document.createElement('button');
+  newCity.textContent= cityAdd
+  cityCollection.appendChild(newCity)
+  newCity.addEventListener('click', function (event){
+    event.preventDefault();
+    getWeather(longlatAdd);
+   })
+}
 function createObj (x) {
   days[x] = {
+    cityName,
     dayTime,
     mainWeath,
     descWeath,
@@ -125,9 +135,9 @@ function getWeather(addCoor) {
         return response.json();
     })
     .then(function (data) {
-      var cityWeather = [];
       cityName = `${data.city.name}, ${data.city.country}`;
       cityNameEl.textContent=cityName;
+      // cityWeather.push(cityName);
        allInfo=data.list;
        console.log(allInfo)
        for (var i=0;i<38;i++){
@@ -147,14 +157,14 @@ function getWeather(addCoor) {
       }
       popMain(cityWeather[0]);
       popFor(cityWeather);
+      addCity(cityName);
+      allWeather.push(cityWeather);
+      console.log(cityWeather)
+      window.localStorage.setItem('weatherData',allWeather);
 })
 }
-var forIds=['32']
+
 function showWeather(){
-  for (let index = 0; index < allCities.length; index++) {
-    const currentCity = allCities[index];
-    currentCity.classList.remove("hide");
-  }
   mainEl.classList.remove("hide");
   for (let index = 0; index < forecastsec.children.length; index++) {
     const currentFor = forecastsec.children[index];
