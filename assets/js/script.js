@@ -28,7 +28,6 @@ var in4dsEl = document.querySelector("#in4ds");
 var cityNameEl = document.querySelector(".cityName");
 var locationEl = document.querySelector("#location");
 var mainWeathEl = document.querySelectorAll(".mainWeath");
-console.log(mainWeathEl)
 var descWeathEl = document.querySelectorAll(".descWeath");
 var tempEl = document.querySelectorAll(".temp");
 var windEl = document.querySelectorAll(".wind");
@@ -38,6 +37,9 @@ var tmForEl = document.querySelector("#tmFor");
 var in2ForEl = document.querySelector("#in2dFor");
 var in3ForEl = document.querySelector("#in3dFor");
 var in4ForEl = document.querySelector("#in4dFor");
+var weatherIconEl = document.getElementById("weathIcon");
+var pic = "./assets/images/default.png"
+weatherIconEl.src=pic
 
 //INITIALIZATIONS
 var lat;
@@ -105,6 +107,7 @@ function addCity(cityAdd){
 function createObj (x) {
   days[x] = {
     cityName,
+    mainWeath,
     dayTime,
     mainWeath,
     descWeath,
@@ -118,6 +121,8 @@ var cont = ["descWeath", "temp", "wind", "humid"]
 var preFix = ["", "Temperature: ", "Wind: ", "Humidity: "]
 var postFix = ["", "°F", " mph", "%"]
 function popMain(obj){
+  pic = `./assets/images/${obj.mainWeath.toLowerCase()}.png`
+  weatherIconEl.src=pic
   var els0 = [descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
   for (let b = 0; b < els0.length; b++) {
     var popStr = `${preFix[b]}${obj[cont[b]]}${postFix[b]} `
@@ -128,6 +133,8 @@ function popMain(obj){
 function popFor(fullObj){
   for (var s=0;s<fullObj.length;s++){
     var currentObj = fullObj[s];
+    pic = `./assets/images/${fullObj.mainWeath[s].toLowerCase()}.png`
+    weatherIconEl.src=pic
     var currentEl = [descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
     //var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
     for (let d = 0; d < currentEl.length; d++) {
