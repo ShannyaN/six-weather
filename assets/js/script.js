@@ -149,13 +149,17 @@ function getWeather(addCoor) {
       popFor(cityWeather);
 })
 }
-
+var forIds=['32']
 function showWeather(){
   for (let index = 0; index < allCities.length; index++) {
     const currentCity = allCities[index];
     currentCity.classList.remove("hide");
   }
   mainEl.classList.remove("hide");
+  for (let index = 0; index < forecastsec.children.length; index++) {
+    const currentFor = forecastsec.children[index];
+    currentFor.classList.remove("hide");
+  }
 };
 
 subButton.addEventListener('click', function (event){
@@ -163,3 +167,5 @@ subButton.addEventListener('click', function (event){
   getCoor();
   showWeather()
  })
+ var forecastsec = document.querySelector('.forecast-section')
+ console.log(forecastsec.children)

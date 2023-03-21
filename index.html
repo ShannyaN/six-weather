@@ -46,7 +46,7 @@
         </div>
     </aside>
    <main class=" p-2 w-100 ml-0 mt-3 me-3" >
-        <div id="main" class="card text-center today" >
+        <div id="main" class="card text-center today hide" >
             <div class="card-header " id="location">Today's Forecast</div>
             <div class="card-body">
               <h2 class="card-title cityName" ></h2>
@@ -61,70 +61,68 @@
               2 days ago
             </div>
           </div>
-        <section class="forecast-section">
-            <div class="card-group">
-                <div class="card" id="tdFor">
-                  <div class="card-body">
-                    <h5 class="card-title">Today</h5>
-                    <div class="card-text">
-                        <h3 class="mainWeath"></h3>
-                        <h4 class="descWeath"></h4>
-                        <h4 class="temp"></h4>
-                        <h4 class="wind"></h4>
-                        <h4 class="humid"></h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="card" id="tmFor">
-                  <div class="card-body">
-                    <h5 class="card-title">Tomorrow</h5>
-                    <div class="card-text">
-                        <h3 class="mainWeath">Main Weather: </h3>
-                        <h4 class="descWeath">Description: </h4>
-                        <h4 class="temp">Temperature: </h4>
-                        <h4 class="wind">Wind: </h4>
-                        <h4 class="humid">Humidity: </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="card" id="in2For">
-                  <div class="card-body">
-                    <h5 class="card-title" id="in2ds">Card title</h5>
-                    <div class="card-text">
-                        <h3 class="mainWeath">Main Weather: </h3>
-                        <h4 class="descWeath">Description: </h4>
-                        <h4 class="temp">Temperature: </h4>
-                        <h4 class="wind">Wind: </h4>
-                        <h4 class="humid">Humidity: </h4>
-                    </div>
-                  </div>
-                </div>
-                <div class="card" id="in3For">
-                    <div class="card-body">
-                      <h5 class="card-title" id="in3ds">Card title</h5>
-                      <div class="card-text">
-                        <h3 class="mainWeath">Main Weather: </h3>
-                        <h4 class="descWeath">Description: </h4>
-                        <h4 class="temp">Temperature: </h4>
-                        <h4 class="wind">Wind: </h4>
-                        <h4 class="humid">Humidity: </h4>
-                    </div>
-                    </div>
-                  </div>
-                <div class="card" id="in4For">
+          <div class="card-group forecast-section">
+              <div class="card hide" id="tdFor">
                 <div class="card-body">
-                    <h5 class="card-title" id="in4ds">Card title</h5>
-                    <div class="card-text">
-                        <h3 class="mainWeath">Main Weather: </h3>
-                        <h4 class="descWeath">Description: </h4>
-                        <h4 class="temp">Temperature: </h4>
-                        <h4 class="wind">Wind: </h4>
-                        <h4 class="humid">Humidity: </h4>
-                    </div>
-                </div>
+                  <h5 class="card-title">Today</h5>
+                  <div class="card-text">
+                      <h3 class="mainWeath"></h3>
+                      <h4 class="descWeath"></h4>
+                      <h4 class="temp"></h4>
+                      <h4 class="wind"></h4>
+                      <h4 class="humid"></h4>
+                  </div>
                 </div>
               </div>
-        </section>-->
+              <div class="card hide" id="tmFor">
+                <div class="card-body">
+                  <h5 class="card-title">Tomorrow</h5>
+                  <div class="card-text">
+                      <h3 class="mainWeath">Main Weather: </h3>
+                      <h4 class="descWeath">Description: </h4>
+                      <h4 class="temp">Temperature: </h4>
+                      <h4 class="wind">Wind: </h4>
+                      <h4 class="humid">Humidity: </h4>
+                  </div>
+                </div>
+              </div>
+              <div class="card hide" id="in2For">
+                <div class="card-body">
+                  <h5 class="card-title" id="in2ds">Card title</h5>
+                  <div class="card-text">
+                      <h3 class="mainWeath">Main Weather: </h3>
+                      <h4 class="descWeath">Description: </h4>
+                      <h4 class="temp">Temperature: </h4>
+                      <h4 class="wind">Wind: </h4>
+                      <h4 class="humid">Humidity: </h4>
+                  </div>
+                </div>
+              </div>
+              <div class="card hide" id="in3For">
+                  <div class="card-body">
+                    <h5 class="card-title" id="in3ds">Card title</h5>
+                    <div class="card-text">
+                      <h3 class="mainWeath">Main Weather: </h3>
+                      <h4 class="descWeath">Description: </h4>
+                      <h4 class="temp">Temperature: </h4>
+                      <h4 class="wind">Wind: </h4>
+                      <h4 class="humid">Humidity: </h4>
+                  </div>
+                  </div>
+                </div>
+              <div class="card hide" id="in4For">
+              <div class="card-body">
+                  <h5 class="card-title" id="in4ds">Card title</h5>
+                  <div class="card-text">
+                      <h3 class="mainWeath">Main Weather: </h3>
+                      <h4 class="descWeath">Description: </h4>
+                      <h4 class="temp">Temperature: </h4>
+                      <h4 class="wind">Wind: </h4>
+                      <h4 class="humid">Humidity: </h4>
+                  </div>
+              </div>
+              </div>
+            </div>
     </main> 
 </div>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
