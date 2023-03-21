@@ -82,10 +82,23 @@ function addCity(cityAdd){
   var newCity = document.createElement('button');
   newCity.textContent= cityAdd
   cityCollection.appendChild(newCity)
+
   newCity.addEventListener('click', function (event){
     event.preventDefault();
-    getWeather(longlatAdd);
-   })
+    var idx;
+    for (let index = 0; index < allWeather.length; index++) {
+      const currentLog = allWeather[index];
+      if (currentLog.cityName === cityAdd){
+        idx=index;
+        console.log(idx)
+        console.log(index)
+      }
+    }
+  cityWeather = allWeather[idx];
+  popMain(cityWeather[0]);
+  console.log(cityWeather)
+  popFor(cityWeather);
+  })
 }
 function createObj (x) {
   days[x] = {
@@ -160,7 +173,7 @@ function getWeather(addCoor) {
       addCity(cityName);
       allWeather.push(cityWeather);
       console.log(cityWeather)
-      window.localStorage.setItem('weatherData',allWeather);
+      window.localStorage.setItem('weatherData',JSON.stringify(allWeather));
 })
 }
 
