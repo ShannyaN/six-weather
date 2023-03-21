@@ -1,5 +1,6 @@
 //INDEPENDENT
 var allWeather = JSON.parse(localStorage.getItem('weatherData'))||[];
+
 console.log(allWeather);
 document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('dddd, MMMM D, YYYY')
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
@@ -10,7 +11,7 @@ var idx = days.indexOf(dayjs().format('dddd'));
 var in2 = days[idx+2] || idx-5;
 var in3 = days[idx+3] || idx-4;
 var in4 = days[idx+4] || idx-3;
-
+console.log(in2)
 //DEPENDENCIES
 var hr = dayjs().format('h');
 var subButton = document.getElementById("subButt");
@@ -35,10 +36,16 @@ var weatherIconEl = document.querySelectorAll(".weathIcon");
 var humidEl = document.querySelectorAll(".humid");
 var tdForEl = document.querySelector("#tdFor");
 var tmForEl = document.querySelector("#tmFor");
-var in2ForEl = document.querySelector("#in2dFor");
-var in3ForEl = document.querySelector("#in3dFor");
-var in4ForEl = document.querySelector("#in4dFor");
-// var weatherIconElMain = document.getElementById("weathIcon");
+var in2ForEl = document.querySelector("#in2ds");
+var in3ForEl = document.querySelector("#in3ds");
+var in4ForEl = document.querySelector("#in4ds");
+var cardTitleEls = [in2ForEl, in3ForEl, in4ForEl]
+var cardTitle = [in2, in3, in4]
+for (let index = 0; index < cardTitleEls.length; index++) {
+  cardTitleEls[index].textContent=cardTitle[index];
+}
+var weatherIconElMain = document.getElementById("weathIcon");
+console.log(in2ForEl)
 
 var pic = "./assets/images/default.png"
 weatherIconEl.src=pic
@@ -85,10 +92,13 @@ function getCoor(){
     })
 }
 function addCity(cityAdd){
+  for (let index = 0; index < allWeather.length; index++) {
+    const currentLog = allWeather[index];
+    if (currentLog[0].cityName === cityAdd) {return}
+    else{
   var newCity = document.createElement('button');
   newCity.textContent= cityAdd
   cityCollection.appendChild(newCity)
-
   newCity.addEventListener('click', function (event){
     event.preventDefault();
     var idx;
@@ -105,7 +115,7 @@ function addCity(cityAdd){
   console.log(cityWeather)
   popFor(cityWeather);
   })
-}
+}}}
 function createObj (x) {
   days[x] = {
     cityName,
@@ -205,3 +215,6 @@ subButton.addEventListener('click', function (event){
  })
  var forecastsec = document.querySelector('.forecast-section')
  console.log(forecastsec.children)
+ allWeather.forEach(weatherEl => {
+  addCity(weatherEl.cityName)
+});

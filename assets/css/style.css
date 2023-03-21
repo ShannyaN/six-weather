@@ -23,3 +23,7 @@ nav h3 {
 li {
     line-height: 3rem;;
 }
+.searchresults button {
+    line-height: 3em;
+    font-size: large;
+}
