@@ -101,8 +101,7 @@ function popMain(obj){
     console.log(obj)
 }}
 function popFor(fullObj){
-  // for (var s=0;s<fullObj.length;s++){
-    var s=0
+  for (var s=0;s<fullObj.length;s++){
     var currentObj = fullObj[s];
     var currentEl = [descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
     //var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
@@ -111,7 +110,7 @@ function popFor(fullObj){
       console.log(popStr);
       currentEl[d].textContent = popStr;
       //console.log(obj)
-
+    }
   }
 }
 
@@ -130,16 +129,18 @@ function getWeather(addCoor) {
       cityName = `${data.city.name}, ${data.city.country}`;
       cityNameEl.textContent=cityName;
        allInfo=data.list;
+       console.log(allInfo)
        for (var i=0;i<38;i++){
         var x=0;
         dayTime = allInfo[i].dt_txt;
-        stamp=dayTime[12];
+        var stamp1=dayTime[11];
+        var stamp2=dayTime[12];
         mainWeath = allInfo[i].weather[0].main;
         descWeath = allInfo[i].weather[0].description;
         temp = allInfo[i].main.temp
         wind = allInfo[i].wind.speed
         humid = allInfo[i].main.humidity
-        if (stamp==3) {
+        if (stamp1==1 && stamp2==5) {//getting forecast for 15hrs or 3pm of each day
           createObj(i);
           cityWeather.push(days[i]);
         }
