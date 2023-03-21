@@ -92,10 +92,13 @@ function getCoor(){
     })
 }
 function addCity(cityAdd){
+  var present = false;
   for (let index = 0; index < allWeather.length; index++) {
     const currentLog = allWeather[index];
-    if (currentLog[0].cityName === cityAdd) {return}
-    else{
+    if (currentLog[index].cityName === cityAdd) {
+      present=true;
+    }}
+  if (!present){
   var newCity = document.createElement('button');
   newCity.textContent= cityAdd
   cityCollection.appendChild(newCity)
@@ -115,7 +118,7 @@ function addCity(cityAdd){
   console.log(cityWeather)
   popFor(cityWeather);
   })
-}}}
+}}
 function createObj (x) {
   days[x] = {
     cityName,
