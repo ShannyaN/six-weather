@@ -1,6 +1,4 @@
 //INDEPENDENT
-var allWeather = JSON.parse(localStorage.getItem('weatherData'))||[];
-console.log(allWeather);
 document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('dddd, MMMM D, YYYY')
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
 var key = "69d4e3163b70b25ade9ac546dae8169a";
@@ -15,7 +13,7 @@ var in4 = days[idx+4] || idx-3;
 var hr = dayjs().format('h');
 var subButton = document.getElementById("subButt");
 var searchContent = document.querySelector("#locSearch");
-var cityCollection = document.querySelector('.list-group');
+var allCities = document.querySelector('.list-group').children;
 var mainEl = document.querySelector("#main");
 var city1El = document.querySelector("#city1");
 var city2El = document.querySelector("#city2");
@@ -63,7 +61,6 @@ function getCoor(){
     var requestUrl = baseUrl + city + limitAdd + apiAdd ;
     var x;
     var y;
-    cityWeather=[];
     console.log(requestUrl);
     fetch(requestUrl)
     .then(function (response) {
@@ -80,31 +77,9 @@ function getCoor(){
        getWeather(longlatAdd);
     })
 }
-function addCity(cityAdd){
-  var newCity = document.createElement('button');
-  newCity.textContent= cityAdd
-  cityCollection.appendChild(newCity)
 
-  newCity.addEventListener('click', function (event){
-    event.preventDefault();
-    var idx;
-    for (let index = 0; index < allWeather.length; index++) {
-      const currentLog = allWeather[index];
-      if (currentLog[0].cityName === cityAdd){
-        idx=index;
-        console.log(idx)
-        console.log(index)
-      }
-    }
-  cityWeather = allWeather[idx];
-  popMain(cityWeather[0]);
-  console.log(cityWeather)
-  popFor(cityWeather);
-  })
-}
 function createObj (x) {
   days[x] = {
-    cityName,
     dayTime,
     mainWeath,
     descWeath,
@@ -114,30 +89,54 @@ function createObj (x) {
   }
   console.log(days[x])
 }
-var cont = ["descWeath", "temp", "wind", "humid"]
-var preFix = ["", "Temperature: ", "Wind: ", "Humidity: "]
-var postFix = ["", "°F", " mph", "%"]
+
+function clearCurrent(){
+  console.log(mainWeath)
+    // var els1 = [mainWeathEl[0], descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
+    // for (let b = 0; b < els1.length; b++) {
+    //   var currentText;
+    //   els1[b].textContent = currentTxt;
+    //   console.log(currentTxt)
+    //  //var colonLoc = currentTxt.indexOf(":")
+    //   currentTxt = currentTxt.split(":");
+    //   currentTxt = currentTxt[0] + ": ";
+    //   console.log(currentTxt)
+    //   els1[b].textContent=currentTxt;}
+    /*for (var e=0;e<cityWeather.length;e++){
+      var currentEls = [mainWeathEl[e+1], descWeathEl[e+1],tempEl[e+1],windEl[e+1],humidEl[e+1]];
+      for (let w = 0; w < currentEls.length; w++) {
+        var currentTxts = currentEls[w].textContent;
+        currentTxts = currentTxts.split(":");
+        currentTxts = currentTxts[0] + ": ";
+        console.log(currentTxts)
+        currentEls[w].textContent=currentTxts;
+      }
+    }*/
+}
+    
+
+var temp = `Main weather: ${data[0].temp}`
+currentEl.val(temp)
+
+var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
 function popMain(obj){
-  var els0 = [descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
+  if (city)
+  var els0 = [mainWeathEl[0], descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
   for (let b = 0; b < els0.length; b++) {
-    var popStr = `${preFix[b]}${obj[cont[b]]}${postFix[b]} `
-    console.log(popStr);
-    els0[b].textContent = popStr;
+    els0[b].append(obj[cont[b]]);
     console.log(obj)
 }}
 function popFor(fullObj){
   for (var s=0;s<fullObj.length;s++){
     var currentObj = fullObj[s];
-    var currentEl = [descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
+    var currentEl = [mainWeathEl[s+1], descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
     //var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
     for (let d = 0; d < currentEl.length; d++) {
-      var popStr = `${preFix[d]}${currentObj[cont[d]]}${postFix[d]} `
-      console.log(popStr);
-      currentEl[d].textContent = popStr;
+      currentEl[d].append(currentObj[cont[d]]);
       //console.log(obj)
-    }
+
   }
-}
+}}
 
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
@@ -150,47 +149,41 @@ function getWeather(addCoor) {
         return response.json();
     })
     .then(function (data) {
+      var cityWeather = [];
       cityName = `${data.city.name}, ${data.city.country}`;
       cityNameEl.textContent=cityName;
-      // cityWeather.push(cityName);
        allInfo=data.list;
-       console.log(allInfo)
        for (var i=0;i<38;i++){
         var x=0;
         dayTime = allInfo[i].dt_txt;
-        var stamp1=dayTime[11];
-        var stamp2=dayTime[12];
+        stamp=dayTime[12];
         mainWeath = allInfo[i].weather[0].main;
         descWeath = allInfo[i].weather[0].description;
         temp = allInfo[i].main.temp
         wind = allInfo[i].wind.speed
         humid = allInfo[i].main.humidity
-        if (stamp1==1 && stamp2==5) {//getting forecast for 15hrs or 3pm of each day
+        if (stamp==3) {
           createObj(i);
           cityWeather.push(days[i]);
         }
       }
+      
       popMain(cityWeather[0]);
       popFor(cityWeather);
-      addCity(cityName);
-      allWeather.push(cityWeather);
-      console.log(cityWeather)
-      window.localStorage.setItem('weatherData',JSON.stringify(allWeather));
 })
 }
 
 function showWeather(){
-  mainEl.classList.remove("hide");
-  for (let index = 0; index < forecastsec.children.length; index++) {
-    const currentFor = forecastsec.children[index];
-    currentFor.classList.remove("hide");
+  for (let index = 0; index < allCities.length; index++) {
+    const currentCity = allCities[index];
+    currentCity.classList.remove("hide");
   }
+  mainEl.classList.remove("hide");
 };
 
 subButton.addEventListener('click', function (event){
   event.preventDefault();
+  if (cityWeather) {clearCurrent()};
   getCoor();
   showWeather()
  })
- var forecastsec = document.querySelector('.forecast-section')
- console.log(forecastsec.children)
