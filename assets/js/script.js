@@ -31,13 +31,15 @@ var mainWeathEl = document.querySelectorAll(".mainWeath");
 var descWeathEl = document.querySelectorAll(".descWeath");
 var tempEl = document.querySelectorAll(".temp");
 var windEl = document.querySelectorAll(".wind");
+var weatherIconEl = document.querySelectorAll(".weathIcon");
 var humidEl = document.querySelectorAll(".humid");
 var tdForEl = document.querySelector("#tdFor");
 var tmForEl = document.querySelector("#tmFor");
 var in2ForEl = document.querySelector("#in2dFor");
 var in3ForEl = document.querySelector("#in3dFor");
 var in4ForEl = document.querySelector("#in4dFor");
-var weatherIconEl = document.getElementById("weathIcon");
+// var weatherIconElMain = document.getElementById("weathIcon");
+
 var pic = "./assets/images/default.png"
 weatherIconEl.src=pic
 
@@ -122,7 +124,7 @@ var preFix = ["", "Temperature: ", "Wind: ", "Humidity: "]
 var postFix = ["", "°F", " mph", "%"]
 function popMain(obj){
   pic = `./assets/images/${obj.mainWeath.toLowerCase()}.png`
-  weatherIconEl.src=pic
+  weatherIconEl[0].src=pic
   var els0 = [descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
   for (let b = 0; b < els0.length; b++) {
     var popStr = `${preFix[b]}${obj[cont[b]]}${postFix[b]} `
@@ -133,8 +135,8 @@ function popMain(obj){
 function popFor(fullObj){
   for (var s=0;s<fullObj.length;s++){
     var currentObj = fullObj[s];
-    pic = `./assets/images/${fullObj.mainWeath[s].toLowerCase()}.png`
-    weatherIconEl.src=pic
+    pic = `./assets/images/${fullObj[s].mainWeath.toLowerCase()}.png`
+    weatherIconEl[s+1].src=pic
     var currentEl = [descWeathEl[s+1],tempEl[s+1],windEl[s+1],humidEl[s+1]];
     //var cont = ["mainWeath", "descWeath", "temp", "wind", "humid"]
     for (let d = 0; d < currentEl.length; d++) {
@@ -148,9 +150,9 @@ function popFor(fullObj){
 
 function getWeather(addCoor) {
     var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
-    var count = "&cnt=" + 40;
+    // var count = "&cnt=" + 50;
     var units = "&units=imperial";
-    var requestUrl2 = baseUrl2 + addCoor + count + apiAdd + units ;
+    var requestUrl2 = baseUrl2 + addCoor + apiAdd + units ;
     console.log(requestUrl2)
     fetch(requestUrl2)
     .then(function (response) {
@@ -162,8 +164,9 @@ function getWeather(addCoor) {
       // cityWeather.push(cityName);
        allInfo=data.list;
        console.log(allInfo)
-       for (var i=0;i<38;i++){
+       for (var i=0;i<40;i++){
         var x=0;
+        console.log(allInfo);
         dayTime = allInfo[i].dt_txt;
         var stamp1=dayTime[11];
         var stamp2=dayTime[12];
@@ -173,8 +176,9 @@ function getWeather(addCoor) {
         wind = allInfo[i].wind.speed
         humid = allInfo[i].main.humidity
         if (stamp1==1 && stamp2==5) {//getting forecast for 15hrs or 3pm of each day
-          createObj(i);
-          cityWeather.push(days[i]);
+         if (cityWeather.length<6)
+            createObj(i);
+            cityWeather.push(days[i]);
         }
       }
       popMain(cityWeather[0]);
