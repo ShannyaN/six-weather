@@ -72,6 +72,11 @@ function getCoor(){//getting coordinates of city entered in search bar using api
     var requestUrl = baseUrl + city + limitAdd + apiAdd ;
     var x;
     var y;
+    var meta = document.createElement('meta');
+    meta.httpEquiv = "Content-Security-Policy";
+    meta.content = "upgrade-insecure-requests";
+    document.getElementsByTagName('head')[0].appendChild(meta);
+
     cityWeather=[];
     console.log(requestUrl);
     fetch(requestUrl)
