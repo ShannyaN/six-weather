@@ -28,7 +28,7 @@ Take a closer look at this repo and my other work by visiting my GitHub with the
 GitHub: https://github.com/ShannyaN  
 Email: niveyro101@gmail.com  
 ## Screenshots  
-![screenshot1]  
+![initial load](assets/images/initialLoad.png)
 ![screenshot2]  
 ## Links  
 Deployed site: https://shannyan.github.io/six-weather/  

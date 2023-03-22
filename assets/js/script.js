@@ -65,6 +65,13 @@ var cityName;
 var city;
 
 //FUNCTIONS
+function showWeather(){//show cards when initial search is made
+  mainEl.classList.remove("hide");
+  for (let index = 0; index < forecastsec.children.length; index++) {
+    const currentFor = forecastsec.children[index];
+    currentFor.classList.remove("hide");
+  }
+};
 function getCoor(){//getting coordinates of city entered in search bar using api
     var baseUrl="https://api.openweathermap.org/geo/1.0/direct?q=";
     city = searchContent.value.replace(/ /g, '');
@@ -193,14 +200,6 @@ function getWeather(addCoor) {//using weather api to extract data for weather
       window.localStorage.setItem('weatherData',JSON.stringify(allWeather)); //placing updated array in local storage
 })
 }
-
-function showWeather(){//show cards when initial search is made
-  mainEl.classList.remove("hide");
-  for (let index = 0; index < forecastsec.children.length; index++) {
-    const currentFor = forecastsec.children[index];
-    currentFor.classList.remove("hide");
-  }
-};
 
 subButton.addEventListener('click', function (event){//initial function to  trigger the coordinates and show card functions
   event.preventDefault();
