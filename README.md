@@ -28,7 +28,7 @@ Take a closer look at this repo and my other work by visiting my GitHub with the
 GitHub: https://github.com/ShannyaN  
 Email: niveyro101@gmail.com  
 ## WalkThrough  
-![walkthrough of search, log, and reload](assets/images/walkthru.gif)
+![walkthrough of search, log, and reload](assets/images/walkthrough.gif)
 ## Links  
 Deployed site: https://shannyan.github.io/six-weather/  
 Repository: https://github.com/ShannyaN/six-weather

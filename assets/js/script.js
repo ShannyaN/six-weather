@@ -84,7 +84,6 @@ function getCoor(){//getting coordinates of city entered in search bar using api
     meta.content = "upgrade-insecure-requests";
     document.getElementsByTagName('head')[0].appendChild(meta);
     cityWeather=[];
-    console.log(requestUrl);
     fetch(requestUrl)
     .then(function (response) {
         return response.json();
@@ -93,7 +92,6 @@ function getCoor(){//getting coordinates of city entered in search bar using api
        lat = data[0].lat;
        lon = data[0].lon;
         longlatAdd="lat=" + lat + "&lon=" + lon;
-       console.log(lon,lat);
        getWeather(longlatAdd);//outputing coodinates into function to get weather conditions
     })
 }
@@ -122,7 +120,6 @@ function addCity(isInitBuild, cityAdd){
   cityWeather = allWeather[idx];
   cityNameEl.textContent=cityWeather[0].cityName;
   popMain(cityWeather[0]);
-  console.log(cityWeather)
   popFor(cityWeather);
   })
 }}
@@ -148,7 +145,6 @@ function popMain(obj){//populate main card showing todays forecast
   var els0 = [descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
   for (let b = 0; b < els0.length; b++) {
     var popStr = `${preFix[b]}${obj[cont[b]]}${postFix[b]} `
-    console.log(popStr);
     els0[b].textContent = popStr;
 }}
 
