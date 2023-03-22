@@ -7,7 +7,7 @@
 3. [Usage](#usage)  
 4. [Contributions](#contributions)   
 5. [Questions](#questions)  
-6. [Screenshots](#screenshots)  
+6. [WalkThrough](#walkthrough)  
 7. [Links](#links)  
 ## Description  
 Weather application used to show a 5 day forecast for any city searched capable of saving the history of searches in local storage so they are accessable when you reload the page.  
@@ -27,9 +27,8 @@ Not open to contributions.
 Take a closer look at this repo and my other work by visiting my GitHub with the link below, or contact me directly by email.  
 GitHub: https://github.com/ShannyaN  
 Email: niveyro101@gmail.com  
-## Screenshots  
-![initial load](assets/images/initialLoad.png)
-![screenshot2]  
+## WalkThrough  
+![walkthrough of search, log, and reload](assets/images/walkthru.gif)
 ## Links  
 Deployed site: https://shannyan.github.io/six-weather/  
 Repository: https://github.com/ShannyaN/six-weather

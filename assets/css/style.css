@@ -27,3 +27,9 @@ li {
     line-height: 5em;
     font-size: large;
 }
+main h2 {
+    font-size: 2em;
+}
+main h3 {
+    font-size: 1.5em;
+}
