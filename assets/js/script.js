@@ -64,7 +64,8 @@ var cityWeather;
 var cityName;
 var city;
 
-function getCoor(){//getting coordinates of city entered in search bar
+//FUNCTIONS
+function getCoor(){//getting coordinates of city entered in search bar using api
     var baseUrl="http://api.openweathermap.org/geo/1.0/direct?q=";
     city = searchContent.value.replace(/ /g, '');
     var limitAdd = "&limit=" + 5;
@@ -85,6 +86,7 @@ function getCoor(){//getting coordinates of city entered in search bar
        getWeather(longlatAdd);//outputing coodinates into function to get weather conditions
     })
 }
+
 function addCity(isInitBuild, cityAdd){
   var present = false;
   for (let index = 0; index < allWeather.length; index++) {
@@ -112,6 +114,7 @@ function addCity(isInitBuild, cityAdd){
   popFor(cityWeather);
   })
 }}
+
 function createObj (x) {//structure of data to be input into each day for weather of city
   days[x] = {
     cityName,
@@ -136,6 +139,7 @@ function popMain(obj){//populate main card showing todays forecast
     console.log(popStr);
     els0[b].textContent = popStr;
 }}
+
 function popFor(fullObj){//populating the five day forecast
   for (var s=0;s<fullObj.length;s++){
     var currentObj = fullObj[s];
