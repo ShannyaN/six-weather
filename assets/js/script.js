@@ -8,9 +8,9 @@ var key = "69d4e3163b70b25ade9ac546dae8169a";
 var apiAdd = "&appid=" + key;
 var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
 var idx = days.indexOf(dayjs().format('dddd'));
-var in2 = days[idx+2] || idx-5;
-var in3 = days[idx+3] || idx-4;
-var in4 = days[idx+4] || idx-3;
+var in2 = days[idx+2] || days[idx-5];
+var in3 = days[idx+3] || days[idx-4];
+var in4 = days[idx+4] || days[idx-3];
 var hr = dayjs().format('h');
 
 //DEPENDENCIES
