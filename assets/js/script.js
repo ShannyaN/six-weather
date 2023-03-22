@@ -1,7 +1,7 @@
-//INDEPENDENT
+//RETRIEVE EXISTING WEATHER DATA IF PRESENT
 var allWeather = JSON.parse(localStorage.getItem('weatherData'))||[];
 
-console.log(allWeather);
+//DAYJS
 document.querySelector("#currentDay").textContent = "Today, " + dayjs().format('dddd, MMMM D, YYYY')
 document.querySelector("#currentTime").textContent =dayjs().format('h:mm A')
 var key = "69d4e3163b70b25ade9ac546dae8169a";
@@ -11,9 +11,9 @@ var idx = days.indexOf(dayjs().format('dddd'));
 var in2 = days[idx+2] || idx-5;
 var in3 = days[idx+3] || idx-4;
 var in4 = days[idx+4] || idx-3;
-console.log(in2)
-//DEPENDENCIES
 var hr = dayjs().format('h');
+
+//DEPENDENCIES
 var subButton = document.getElementById("subButt");
 var searchContent = document.querySelector("#locSearch");
 var cityCollection = document.querySelector('.list-group');
@@ -39,22 +39,19 @@ var tmForEl = document.querySelector("#tmFor");
 var in2ForEl = document.querySelector("#in2ds");
 var in3ForEl = document.querySelector("#in3ds");
 var in4ForEl = document.querySelector("#in4ds");
-var cardTitleEls = [in2ForEl, in3ForEl, in4ForEl]
-var cardTitle = [in2, in3, in4]
-for (let index = 0; index < cardTitleEls.length; index++) {
+var cardTitleEls = [in2ForEl, in3ForEl, in4ForEl];
+var cardTitle = [in2, in3, in4];
+var weatherIconElMain = document.getElementById("weathIcon");
+var pic = "./assets/images/default.png"
+weatherIconEl.src=pic //assigning default picture if not assigned in function
+for (let index = 0; index < cardTitleEls.length; index++) { //assigning the days of the week to the forecast cards
   cardTitleEls[index].textContent=cardTitle[index];
 }
-var weatherIconElMain = document.getElementById("weathIcon");
-console.log(in2ForEl)
-
-var pic = "./assets/images/default.png"
-weatherIconEl.src=pic
 
 //INITIALIZATIONS
 var lat;
 var lon;
 var longlatAdd;
-var i=0;
 var allInfo;
 var dayTime;
 var mainWeath;
@@ -67,7 +64,7 @@ var cityWeather;
 var cityName;
 var city;
 
-function getCoor(){
+function getCoor(){//getting coordinates of city entered in search bar
     var baseUrl="http://api.openweathermap.org/geo/1.0/direct?q=";
     city = searchContent.value.replace(/ /g, '');
     var limitAdd = "&limit=" + 5;
@@ -78,39 +75,34 @@ function getCoor(){
     console.log(requestUrl);
     fetch(requestUrl)
     .then(function (response) {
-        //console.log(response.json());
         return response.json();
     })
     .then(function (data) {
-       // console.log(data.json())
        lat = data[0].lat;
        lon = data[0].lon;
         longlatAdd="lat=" + lat + "&lon=" + lon;
        console.log(lon,lat);
-       //console.log(longlatAdd)
-       getWeather(longlatAdd);
+       getWeather(longlatAdd);//outputing coodinates into function to get weather conditions
     })
 }
-function addCity(cityAdd){
+function addCity(isInitBuild, cityAdd){
   var present = false;
   for (let index = 0; index < allWeather.length; index++) {
     const currentLog = allWeather[index];
-    if (currentLog[index].cityName === cityAdd) {
+    if (currentLog[0].cityName === cityAdd) {
       present=true;
     }}
-  if (!present){
+  if (!present || isInitBuild){//if either apart of the initial load of site or searched and not already part of the list, add to city list
   var newCity = document.createElement('button');
   newCity.textContent= cityAdd
   cityCollection.appendChild(newCity)
-  newCity.addEventListener('click', function (event){
+  newCity.addEventListener('click', function (event){//if city is clicked, load data into forecast
     event.preventDefault();
     var idx;
     for (let index = 0; index < allWeather.length; index++) {
       const currentLog = allWeather[index];
-      if (currentLog[0].cityName === cityAdd){
+      if (currentLog[0].cityName === cityAdd){//find object within weatherdata array
         idx=index;
-        console.log(idx)
-        console.log(index)
       }
     }
   cityWeather = allWeather[idx];
@@ -120,7 +112,7 @@ function addCity(cityAdd){
   popFor(cityWeather);
   })
 }}
-function createObj (x) {
+function createObj (x) {//structure of data to be input into each day for weather of city
   days[x] = {
     cityName,
     mainWeath,
@@ -131,12 +123,11 @@ function createObj (x) {
     wind,
     humid
   }
-  console.log(days[x])
 }
 var cont = ["descWeath", "temp", "wind", "humid"]
 var preFix = ["", "Temperature: ", "Wind: ", "Humidity: "]
 var postFix = ["", "°F", " mph", "%"]
-function popMain(obj){
+function popMain(obj){//populate main card showing todays forecast
   pic = `./assets/images/${obj.mainWeath.toLowerCase()}.png`
   weatherIconEl[0].src=pic
   var els0 = [descWeathEl[0],tempEl[0],windEl[0],humidEl[0]]
@@ -144,9 +135,8 @@ function popMain(obj){
     var popStr = `${preFix[b]}${obj[cont[b]]}${postFix[b]} `
     console.log(popStr);
     els0[b].textContent = popStr;
-    console.log(obj)
 }}
-function popFor(fullObj){
+function popFor(fullObj){//populating the five day forecast
   for (var s=0;s<fullObj.length;s++){
     var currentObj = fullObj[s];
     pic = `./assets/images/${fullObj[s].mainWeath.toLowerCase()}.png`
@@ -197,7 +187,7 @@ function getWeather(addCoor) {
       }
       popMain(cityWeather[0]);
       popFor(cityWeather);
-      addCity(cityName);
+      addCity(false, cityName);
       allWeather.push(cityWeather);
       console.log(cityWeather)
       window.localStorage.setItem('weatherData',JSON.stringify(allWeather));
