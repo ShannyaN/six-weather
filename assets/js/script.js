@@ -66,7 +66,7 @@ var city;
 
 //FUNCTIONS
 function getCoor(){//getting coordinates of city entered in search bar using api
-    var baseUrl="http://api.openweathermap.org/geo/1.0/direct?q=";
+    var baseUrl="https://api.openweathermap.org/geo/1.0/direct?q=";
     city = searchContent.value.replace(/ /g, '');
     var limitAdd = "&limit=" + 5;
     var requestUrl = baseUrl + city + limitAdd + apiAdd ;
@@ -154,7 +154,7 @@ function popFor(fullObj){//populating the five day forecast
 }
 
 function getWeather(addCoor) {//using weather api to extract data for weather
-    var baseUrl2 = "http://api.openweathermap.org/data/2.5/forecast?"
+    var baseUrl2 = "https://api.openweathermap.org/data/2.5/forecast?"
     var units = "&units=imperial";
     var requestUrl2 = baseUrl2 + addCoor + apiAdd + units ;
     fetch(requestUrl2)
