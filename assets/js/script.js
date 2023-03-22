@@ -73,10 +73,9 @@ function getCoor(){//getting coordinates of city entered in search bar using api
     var x;
     var y;
     var meta = document.createElement('meta');
-    meta.httpEquiv = "Content-Security-Policy";
+    meta.httpEquiv = "Content-Security-Policy";//fixing http/https api issue
     meta.content = "upgrade-insecure-requests";
     document.getElementsByTagName('head')[0].appendChild(meta);
-
     cityWeather=[];
     console.log(requestUrl);
     fetch(requestUrl)
@@ -104,6 +103,7 @@ function addCity(isInitBuild, cityAdd){
   newCity.textContent= cityAdd
   cityCollection.appendChild(newCity)
   newCity.addEventListener('click', function (event){//if city is clicked, load data into forecast
+    showWeather();
     event.preventDefault();
     var idx;
     for (let index = 0; index < allWeather.length; index++) {
